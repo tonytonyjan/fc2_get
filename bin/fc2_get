@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'fc2_get'
+
+if ARGV.size == 1
+  Fc2Get.download ARGV[0]
+else
+  puts "Usage: #{__FILE__} VIDEO_ID"
+end
