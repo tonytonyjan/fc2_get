@@ -10,4 +10,4 @@ fc2_get is a command line tool for downloading **public** video without limitati
 
     $ fc2_get VIDEO_ID
 
-# [Development Story](http://tonytonyjan.net/2014/06/28/%7C-equals-2-movie-downloader/)
+# [Development Story](http://tonytonyjan.net/2014/06/28/fcfc-movie-downloader/)
