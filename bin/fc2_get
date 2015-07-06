@@ -3,7 +3,15 @@
 require 'fc2_get'
 
 if ARGV.size == 1
-  Fc2Get.download ARGV[0]
+  begin
+    Fc2Get.download ARGV[0]
+  rescue Fc2Get::FileExists
+    print "overwrite file? (y/N) "
+    if $stdin.gets.chop!.downcase == 'y'
+      File.unlink $!.path
+      Fc2Get.download ARGV[0]
+    end
+  end
 else
   puts 'Usage: fc2_get VIDEO_ID'
 end

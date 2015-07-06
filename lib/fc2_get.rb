@@ -4,6 +4,13 @@ require 'net/http'
 require 'fc2_get/version'
 
 module Fc2Get
+  class FileExists < RuntimeError
+    attr_reader :path
+    def initialize msg, path
+      super msg
+      @path = path
+    end
+  end
   module_function
   def mimi(video_id)
     Digest::MD5.hexdigest(video_id + '_gGddgPfeaf_gzyr')
@@ -26,6 +33,7 @@ module Fc2Get
     video_uri = download_uri(video_id)
     file_path = File.directory?(path) ?
                 File.expand_path(File.basename(video_uri.path), path) : path
+    raise FileExists.new "path: #{file_path}", file_path if File.exist? file_path
     Net::HTTP.get_response(video_uri) do |res|
       size, total = 0, res.header['Content-Length'].to_i
       open file_path, 'w' do |io|
